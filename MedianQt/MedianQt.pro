@@ -4,17 +4,28 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
+
+CONFIG += qt release
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = MedianQt
+TARGET = Movie
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += \
+    src/mainwindow.cxx \
+    src/main.cxx
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    src/mainwindow.h
 
-FORMS    += mainwindow.ui
+DESTDIR += ./bin
+
+#CONFIG += qt release
+
+MOC_DIR += ./moc
+
+#指定目标文件(obj)的存放目录
+OBJECTS_DIR += ./obj
