@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/images/top-level">
+        <file>view.png</file>
+        <file>Archaia.icns</file>
+        <file>Archaia.png</file>
+    </qresource>
+</RCC>

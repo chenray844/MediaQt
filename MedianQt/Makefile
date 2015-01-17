@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I. -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -Imoc -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/AGL.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib
+INCPATH       = -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I. -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -Imoc -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/AGL.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib
 QMAKE         = /Users/Raymond/Qt5.4.0/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = Movie1.0.0
 DISTDIR = /Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt/obj/Movie1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -mmacosx-version-min=10.7 -Wl,-rpath,/Users/Raymond/Qt5.4.0/5.4/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtXml -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib -framework QtMultimediaWidgets -framework QtMultimedia -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework QtGui -framework QtWidgets -framework QtXml -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -49,10 +49,20 @@ OBJECTS_DIR   = obj/
 ####### Files
 
 SOURCES       = src/mainwindow.cxx \
-		src/main.cxx moc/moc_mainwindow.cpp
+		src/main.cxx \
+		src/dockwidget.cxx \
+		src/centerwidget.cxx rcc/qrc_resource.cpp \
+		moc/moc_mainwindow.cpp \
+		moc/moc_dockwidget.cpp \
+		moc/moc_centerwidget.cpp
 OBJECTS       = obj/mainwindow.o \
 		obj/main.o \
-		obj/moc_mainwindow.o
+		obj/dockwidget.o \
+		obj/centerwidget.o \
+		obj/qrc_resource.o \
+		obj/moc_mainwindow.o \
+		obj/moc_dockwidget.o \
+		obj/moc_centerwidget.o
 DIST          = /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -181,8 +191,12 @@ DIST          = /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.pr
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/exceptions.prf \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
-		MedianQt.pro src/mainwindow.h src/mainwindow.cxx \
-		src/main.cxx
+		MedianQt.pro src/mainwindow.h \
+		src/dockwidget.h \
+		src/centerwidget.h src/mainwindow.cxx \
+		src/main.cxx \
+		src/dockwidget.cxx \
+		src/centerwidget.cxx
 QMAKE_TARGET  = Movie
 DESTDIR       = bin/#avoid trailing-slash linebreak
 TARGET        = bin/Movie.app/Contents/MacOS/Movie
@@ -353,9 +367,13 @@ Makefile: MedianQt.pro /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang/qm
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
 		MedianQt.pro \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/QtGui.prl \
+		src/res/resource.qrc \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/QtMultimediaWidgets.prl \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/QtNetwork.prl \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/QtCore.prl \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/QtGui.prl \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/QtXml.prl
 	$(QMAKE) -o Makefile MedianQt.pro
 /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf:
@@ -487,9 +505,13 @@ Makefile: MedianQt.pro /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang/qm
 /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf:
 /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf:
 MedianQt.pro:
-/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
-/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/QtGui.prl:
+src/res/resource.qrc:
+/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/QtMultimediaWidgets.prl:
+/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl:
+/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
 /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/QtCore.prl:
+/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/QtGui.prl:
+/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/QtXml.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile MedianQt.pro
@@ -507,12 +529,17 @@ bin/Movie.app/Contents/Resources/empty.lproj:
 bin/Movie.app/Contents/Info.plist: 
 	@test -d bin/Movie.app/Contents || mkdir -p bin/Movie.app/Contents
 	@$(DEL_FILE) bin/Movie.app/Contents/Info.plist
-	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.Movie,g" -e "s,@ICON@,,g" -e "s,@EXECUTABLE@,Movie,g" -e "s,@TYPEINFO@,????,g" /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang/Info.plist.app >bin/Movie.app/Contents/Info.plist
+	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.Movie,g" -e "s,@ICON@,Archaia.icns,g" -e "s,@EXECUTABLE@,Movie,g" -e "s,@TYPEINFO@,????,g" /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang/Info.plist.app >bin/Movie.app/Contents/Info.plist
+bin/Movie.app/Contents/Resources/Archaia.icns: src/res/Archaia.icns
+	@test -d bin/Movie.app/Contents/Resources/ || mkdir -p bin/Movie.app/Contents/Resources/
+	@$(DEL_FILE) bin/Movie.app/Contents/Resources/Archaia.icns
+	@$(COPY_FILE) src/res/Archaia.icns bin/Movie.app/Contents/Resources/Archaia.icns
 
 all: Makefile \
 		bin/Movie.app/Contents/PkgInfo \
 		bin/Movie.app/Contents/Resources/empty.lproj \
-		bin/Movie.app/Contents/Info.plist $(TARGET)
+		bin/Movie.app/Contents/Info.plist \
+		bin/Movie.app/Contents/Resources/Archaia.icns $(TARGET)
 
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
@@ -520,8 +547,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents src/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/mainwindow.cxx src/main.cxx $(DISTDIR)/
+	$(COPY_FILE) --parents src/res/resource.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.h src/dockwidget.h src/centerwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.cxx src/main.cxx src/dockwidget.cxx src/centerwidget.cxx $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -544,19 +572,40 @@ check: first
 
 compiler_objective_c_make_all:
 compiler_objective_c_clean:
-compiler_rcc_make_all:
+compiler_rcc_make_all: rcc/qrc_resource.cpp
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc/moc_mainwindow.cpp
+	-$(DEL_FILE) rcc/qrc_resource.cpp
+rcc/qrc_resource.cpp: src/res/resource.qrc \
+		src/res/view.png \
+		src/res/Archaia.icns \
+		src/res/Archaia.png
+	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/rcc -name resource src/res/resource.qrc -o rcc/qrc_resource.cpp
+
+compiler_moc_header_make_all: moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc/moc_mainwindow.cpp
-moc/moc_mainwindow.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+	-$(DEL_FILE) moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp
+moc/moc_mainwindow.cpp: src/dockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		src/centerwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		src/mainwindow.h
-	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/mainwindow.h -o moc/moc_mainwindow.cpp
+	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/mainwindow.h -o moc/moc_mainwindow.cpp
+
+moc/moc_dockwidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		src/dockwidget.h
+	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/dockwidget.h -o moc/moc_dockwidget.cpp
+
+moc/moc_centerwidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		src/centerwidget.h
+	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/centerwidget.h -o moc/moc_centerwidget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -570,32 +619,100 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean 
 
 ####### Compile
 
 obj/mainwindow.o: src/mainwindow.cxx src/mainwindow.h \
+		src/dockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		src/centerwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QMovie \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qmovie.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlayer \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplayer.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlaylist \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplaylist.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QVideoWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qvideowidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QPixmap \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QIcon \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qicon.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QColor \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qcolor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/mainwindow.o src/mainwindow.cxx
 
 obj/main.o: src/main.cxx src/mainwindow.h \
+		src/dockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		src/centerwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/main.o src/main.cxx
 
+obj/dockwidget.o: src/dockwidget.cxx src/dockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidgetItem \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QToolButton \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtoolbutton.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QAction \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qaction.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGridLayout \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgridlayout.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/dockwidget.o src/dockwidget.cxx
+
+obj/centerwidget.o: src/centerwidget.cxx src/centerwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/centerwidget.o src/centerwidget.cxx
+
+obj/qrc_resource.o: rcc/qrc_resource.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/qrc_resource.o rcc/qrc_resource.cpp
+
 obj/moc_mainwindow.o: moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_mainwindow.o moc/moc_mainwindow.cpp
+
+obj/moc_dockwidget.o: moc/moc_dockwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_dockwidget.o moc/moc_dockwidget.cpp
+
+obj/moc_centerwidget.o: moc/moc_centerwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_centerwidget.o moc/moc_centerwidget.cpp
 
 ####### Install
 

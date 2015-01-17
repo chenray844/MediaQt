@@ -4,9 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core gui xml
+QT       += core \
+            gui \
+            xml \
+            multimedia \
+            multimediawidgets
 
-CONFIG += qt release
+CONFIG += qt \
+        release
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,16 +21,29 @@ TEMPLATE = app
 
 SOURCES += \
     src/mainwindow.cxx \
-    src/main.cxx
+    src/main.cxx \
+    src/dockwidget.cxx \
+    src/centerwidget.cxx
 
 HEADERS  += \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/dockwidget.h \
+    src/centerwidget.h
+
+RESOURCES += \
+    src/res/resource.qrc
+
+ICON = src/res/Archaia.icns ##set app icon
+
+RCC_DIR += ./rcc
 
 DESTDIR += ./bin
-
-#CONFIG += qt release
 
 MOC_DIR += ./moc
 
 #指定目标文件(obj)的存放目录
 OBJECTS_DIR += ./obj
+
+DISTFILES +=
+
+
