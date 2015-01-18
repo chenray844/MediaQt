@@ -13,19 +13,13 @@ CenterWidget::CenterWidget( QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout();
 
     myPlayer = new QMediaPlayer();
-    //myPlayer->setPlaylist(myPlaylist);
 
     myVideoWidget = new QVideoWidget();
     myPlayer->setVideoOutput(myVideoWidget);
 
-    //myPlayer->play();
-
     layout->addWidget(myVideoWidget);
 
     setLayout(layout);
-
-    //connect(myPlayer,SIGNAL(positionChanged(qint64)),this,SLOT(slotPositionChanged(qint64)));
-
 }
 
 void CenterWidget::slotUpdatePlaylist(QMediaPlaylist *list)

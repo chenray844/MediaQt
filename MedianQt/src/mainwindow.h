@@ -14,6 +14,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent=0);
 
+signals:
+    void signalUpdatePlaylist(QMediaPlaylist *list);
+
 protected slots:
     void slotPositionChanged(qint64);
 

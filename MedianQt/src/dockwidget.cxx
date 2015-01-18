@@ -36,7 +36,6 @@ DockWidget::DockWidget(QWidget *parent)
 
     //playlist
     myPlaylist = new QMediaPlaylist();
-    //emit signalUpdatePlaylist(myPlaylist);
 
     connect(btn,SIGNAL(clicked()),this,SLOT(slotAddPlaylist()));
 }
