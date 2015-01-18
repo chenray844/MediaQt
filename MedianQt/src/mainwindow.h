@@ -18,9 +18,13 @@ protected slots:
     void slotPositionChanged(qint64);
 
 private:
-    QLabel *myPositionLabel;
+    //dock and center widget
     DockWidget *myDockWidget;
     CenterWidget *myCenterWidget;
+
+    //playlist
+    QMediaPlaylist *myPlaylist;
+
 
 };
 
