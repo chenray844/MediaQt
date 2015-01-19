@@ -30,6 +30,14 @@ MainWindow::MainWindow(QWidget *parent)
             myCenterWidget,SLOT(slotUpdatePlaylist(QMediaPlaylist*)));
     connect(this,SIGNAL(signalUpdatePlaylist(QMediaPlaylist*)),myCenterWidget,SLOT(slotUpdatePlaylist(QMediaPlaylist*)));
 
+    connect(myDockWidget,SIGNAL(signalFullScreen(bool)),
+            myCenterWidget,SLOT(slotFullScreen(bool)));
+
+    connect(myCenterWidget,SIGNAL(signalUpdateAlltime(qint64)),
+            myDockWidget,SLOT(slotUpdateAlltime(qint64)));
+
+    connect(myDockWidget,SIGNAL(signalChangedPosition(qint64)),
+            myCenterWidget,SLOT(slotChangePosition(qint64)));
 
     setMinimumSize(QSize(800,600));
 

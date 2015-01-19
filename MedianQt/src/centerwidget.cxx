@@ -20,6 +20,8 @@ CenterWidget::CenterWidget( QWidget *parent)
     layout->addWidget(myVideoWidget);
 
     setLayout(layout);
+
+    connect(myPlayer,SIGNAL(durationChanged(qint64)),this,SLOT(slotPositionChanged(qint64)));
 }
 
 void CenterWidget::slotUpdatePlaylist(QMediaPlaylist *list)
@@ -30,9 +32,25 @@ void CenterWidget::slotUpdatePlaylist(QMediaPlaylist *list)
     myPlayer->setPlaylist(myPlaylist);
     myPlayer->play();
 
+    //qint64 t = myPlayer->duration();
+    //emit signalUpdateAlltime(t);
+
 }
 
 void CenterWidget::slotPositionChanged(qint64 pos)
 {
-    qDebug()<<"Median Position"<<pos;
+    //qDebug()<<"Median Position"<<pos;
+    emit signalUpdateAlltime(pos);
+}
+
+void CenterWidget::slotFullScreen(bool flag)
+{
+    myVideoWidget->setFullScreen(flag);
+
+}
+
+void CenterWidget::slotChangePosition(qint64 pos)
+{
+
+    myPlayer->setPosition(pos);
 }
