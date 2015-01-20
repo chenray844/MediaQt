@@ -11,6 +11,9 @@
 #include <QPixmap>
 #include <QIcon>
 #include <QColor>
+#include <QMenu>
+#include <QAction>
+#include <QMenuBar>
 
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent)
@@ -26,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
     myCenterWidget = new CenterWidget();
     setCentralWidget(myCenterWidget);
 
+    //menu
+    createMenus();
+
     connect(myDockWidget,SIGNAL(signalUpdatePlaylist(QMediaPlaylist*)),
             myCenterWidget,SLOT(slotUpdatePlaylist(QMediaPlaylist*)));
     connect(this,SIGNAL(signalUpdatePlaylist(QMediaPlaylist*)),myCenterWidget,SLOT(slotUpdatePlaylist(QMediaPlaylist*)));
@@ -39,6 +45,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(myDockWidget,SIGNAL(signalChangedPosition(qint64)),
             myCenterWidget,SLOT(slotChangePosition(qint64)));
 
+    connect(myCenterWidget,SIGNAL(signalUpdateSliderValue(qint64)),
+            myDockWidget,SLOT(slotUpdateSliderValue(qint64)));
+
+
     setMinimumSize(QSize(800,600));
 
 }
@@ -47,5 +57,13 @@ void MainWindow::slotPositionChanged(qint64 pos)
 {
 
     qDebug()<<"position of the mp3 is :"<<pos;
+
+}
+
+void MainWindow::createMenus()
+{
+    fileMenu = menuBar()->addMenu("&File");
+    QAction *act = new QAction("test",this);
+    fileMenu->addAction(act);
 
 }

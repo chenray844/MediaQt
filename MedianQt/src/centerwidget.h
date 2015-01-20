@@ -15,12 +15,14 @@ public:
 
 signals:
     void signalUpdateAlltime(qint64 t);
+    void signalUpdateSliderValue(qint64 value);
 
 protected slots:
     void slotUpdatePlaylist(QMediaPlaylist *list);
     void slotPositionChanged(qint64 pos);
     void slotFullScreen(bool);
     void slotChangePosition(qint64 pos);
+    void slotUpdateSliderPosition(qint64 pos);
 
 private:
     QMediaPlaylist *myPlaylist;

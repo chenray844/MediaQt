@@ -8,6 +8,8 @@
 #include <QLabel>
 #include <QWidget>
 
+class QMenu;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -21,12 +23,18 @@ protected slots:
     void slotPositionChanged(qint64);
 
 private:
+    //create menus
+    void createMenus();
+
     //dock and center widget
     DockWidget *myDockWidget;
     CenterWidget *myCenterWidget;
 
     //playlist
     QMediaPlaylist *myPlaylist;
+
+    //menu
+    QMenu *fileMenu;
 
 
 };

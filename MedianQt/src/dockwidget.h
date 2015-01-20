@@ -6,6 +6,7 @@
 
 class QMediaPlaylist;
 class QLabel;
+class QSlider;
 
 class DockWidget : public QDockWidget
 {
@@ -26,11 +27,17 @@ protected slots:
 
     void slotUpdateAlltime(qint64 t);
     void slotChangedPosition();
+    void slotUpdateSliderValue(qint64 value);
+    void slotRealtimeShow(int pos);
 
 private:
     QMediaPlaylist *myPlaylist;
     QTreeWidget *myTreeWidget;
     QLabel *myTimeLabel;
+    QLabel *myCurrentTimeLabel;
+    QSlider *mySlider;
+    QLabel *myMinLabel;
+    QLabel *myMaxLabel;
 
 };
 

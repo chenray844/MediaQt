@@ -12,6 +12,7 @@
 #include <QMovie>
 #include <QMediaPlaylist>
 #include <QFileDialog>
+#include <QSlider>
 
 DockWidget::DockWidget(QWidget *parent)
     :QDockWidget(parent)
@@ -43,6 +44,9 @@ DockWidget::DockWidget(QWidget *parent)
     myTimeLabel = new QLabel();
     ltime->addWidget(new QLabel("Time : "));
     ltime->addWidget(myTimeLabel);
+    myCurrentTimeLabel = new QLabel();
+    ltime->addWidget(new QLabel("Current time :"));
+    ltime->addWidget(myCurrentTimeLabel);
     layout->addLayout(ltime);
 
     QPushButton *loadBtn = new QPushButton("Load Movie");
@@ -55,8 +59,22 @@ DockWidget::DockWidget(QWidget *parent)
     QPushButton *resetBtn = new QPushButton("Come Back");
     layout->addWidget(resetBtn);
 
-    QPushButton *changePosBtn = new QPushButton("Change Position");
-    layout->addWidget(changePosBtn);
+    //QPushButton *changePosBtn = new QPushButton("Change Position");
+    //layout->addWidget(changePosBtn);
+
+    QHBoxLayout *lSlider = new QHBoxLayout();
+    myMinLabel = new QLabel();
+    //myMinLabel->setText("Real Position: 0");
+    myMaxLabel = new QLabel();
+    mySlider = new QSlider(Qt::Horizontal);
+    mySlider->setMinimum(0);
+    mySlider->setMaximum(1000);
+    mySlider->setTickPosition(QSlider::TicksAbove);
+    lSlider->addWidget(myMinLabel);
+    lSlider->addWidget(mySlider);
+    lSlider->addWidget(myMaxLabel);
+    //layout->addWidget(mySlider);
+    layout->addLayout(lSlider);
 
 
     layout->addStretch(1);
@@ -72,7 +90,9 @@ DockWidget::DockWidget(QWidget *parent)
     connect(loadBtn,SIGNAL(clicked()),this,SLOT(slotLoadMovie()));
     connect(fullScreenBtn,SIGNAL(clicked()),this,SLOT(slotFullScreen()));
     connect(resetBtn,SIGNAL(clicked()),this,SLOT(slotResetScreen()));
-    connect(changePosBtn,SIGNAL(clicked()),this,SLOT(slotChangedPosition()));
+    //connect(changePosBtn,SIGNAL(clicked()),this,SLOT(slotChangedPosition()));
+    connect(mySlider,SIGNAL(sliderReleased()),this,SLOT(slotChangedPosition()));
+    //connect(mySlider,SIGNAL(sliderMoved(int)),this,SLOT(slotRealtimeShow(int)));
 }
 
 void DockWidget::slotAddPlaylist()
@@ -135,10 +155,28 @@ void DockWidget::slotUpdateAlltime(qint64 t)
 
     qDebug()<<"All time :"<<t;
     myTimeLabel->setText(QString("%1 s").arg(t/1000.0));
+    mySlider->setMaximum(t);
+    //myMinLabel->setText("0");
+    myMaxLabel->setText(QString("%1 min").arg(t/1000.0/60.0));
 }
 
 void DockWidget::slotChangedPosition()
 {
-    qint64 pos = 1000;
+    qint64 pos = mySlider->value();
+    //myCurrentTimeLabel->setText(QString("%1 s").arg(pos/1000.0));
+    //qDebug()<<"Slider position :"<<pos;
     emit signalChangedPosition(pos);
+}
+
+void DockWidget::slotUpdateSliderValue(qint64 value)
+{
+    myCurrentTimeLabel->setText(QString("%1 s").arg(value/1000.0));
+    mySlider->setValue(value);
+
+}
+
+void DockWidget::slotRealtimeShow(int pos)
+{
+
+    myCurrentTimeLabel->setText(QString("%1 s").arg(pos));
 }

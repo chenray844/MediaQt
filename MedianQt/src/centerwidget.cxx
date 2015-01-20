@@ -22,6 +22,7 @@ CenterWidget::CenterWidget( QWidget *parent)
     setLayout(layout);
 
     connect(myPlayer,SIGNAL(durationChanged(qint64)),this,SLOT(slotPositionChanged(qint64)));
+    connect(myPlayer,SIGNAL(positionChanged(qint64)),this,SLOT(slotUpdateSliderPosition(qint64)));
 }
 
 void CenterWidget::slotUpdatePlaylist(QMediaPlaylist *list)
@@ -53,4 +54,10 @@ void CenterWidget::slotChangePosition(qint64 pos)
 {
 
     myPlayer->setPosition(pos);
+}
+
+void CenterWidget::slotUpdateSliderPosition(qint64 pos)
+{
+
+    emit signalUpdateSliderValue(pos);
 }
