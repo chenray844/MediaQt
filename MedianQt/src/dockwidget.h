@@ -22,6 +22,7 @@ signals:
 protected slots:
     void slotAddPlaylist();
     void slotLoadMovie();
+    void slotLoadAVIMovie();
     void slotFullScreen();
     void slotResetScreen();
 

@@ -53,6 +53,9 @@ DockWidget::DockWidget(QWidget *parent)
     loadBtn->setIcon(QIcon(":/images/top-level/view.png"));
     layout->addWidget(loadBtn);
 
+    //QPushButton *loadAVIBtn = new QPushButton("Load AVI");
+    //layout->addWidget(loadAVIBtn);
+
     QPushButton *fullScreenBtn = new QPushButton("Full Screen");
     layout->addWidget(fullScreenBtn);
 
@@ -88,6 +91,7 @@ DockWidget::DockWidget(QWidget *parent)
 
     connect(btn,SIGNAL(clicked()),this,SLOT(slotAddPlaylist()));
     connect(loadBtn,SIGNAL(clicked()),this,SLOT(slotLoadMovie()));
+    //connect(loadAVIBtn,SIGNAL(clicked()),this,SLOT(slotLoadAVIMovie()));
     connect(fullScreenBtn,SIGNAL(clicked()),this,SLOT(slotFullScreen()));
     connect(resetBtn,SIGNAL(clicked()),this,SLOT(slotResetScreen()));
     //connect(changePosBtn,SIGNAL(clicked()),this,SLOT(slotChangedPosition()));
@@ -133,6 +137,16 @@ void DockWidget::slotLoadMovie()
     root->setExpanded(true);
 
     myTreeWidget->setCurrentItem(item);
+
+    emit signalUpdatePlaylist(myPlaylist);
+
+}
+
+void DockWidget::slotLoadAVIMovie()
+{
+    QString filename = QFileDialog::getOpenFileName(this,"Load AVI","","AVI(*.rmvb *.avi)");
+    qDebug()<<filename;
+    myPlaylist->addMedia(QUrl::fromLocalFile(filename));
 
     emit signalUpdatePlaylist(myPlaylist);
 

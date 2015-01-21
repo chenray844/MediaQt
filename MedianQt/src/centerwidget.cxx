@@ -31,6 +31,8 @@ void CenterWidget::slotUpdatePlaylist(QMediaPlaylist *list)
     qDebug()<<"Update play list";
     myPlaylist->setPlaybackMode(QMediaPlaylist::Loop);
     myPlayer->setPlaylist(myPlaylist);
+    qDebug()<<myPlayer->error();
+    qDebug()<<myPlayer->mediaStatus();
     myPlayer->play();
 
     //qint64 t = myPlayer->duration();
