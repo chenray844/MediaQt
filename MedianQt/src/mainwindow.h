@@ -21,6 +21,7 @@ signals:
 
 protected slots:
     void slotPositionChanged(qint64);
+    void slotSetCenterWidget();
 
 private:
     //create menus

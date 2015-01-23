@@ -18,6 +18,7 @@ signals:
     void signalUpdatePlaylist(QMediaPlaylist *list);
     void signalFullScreen(bool);
     void signalChangedPosition(qint64 pos);
+    void signalSetWidget();
 
 protected slots:
     void slotAddPlaylist();
@@ -25,6 +26,7 @@ protected slots:
     void slotLoadAVIMovie();
     void slotFullScreen();
     void slotResetScreen();
+    void slotSetWidget();
 
     void slotUpdateAlltime(qint64 t);
     void slotChangedPosition();

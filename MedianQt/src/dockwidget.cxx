@@ -79,6 +79,9 @@ DockWidget::DockWidget(QWidget *parent)
     //layout->addWidget(mySlider);
     layout->addLayout(lSlider);
 
+    QPushButton *setBtn = new QPushButton("Set Widget");
+    layout->addWidget(setBtn);
+
 
     layout->addStretch(1);
 
@@ -94,6 +97,7 @@ DockWidget::DockWidget(QWidget *parent)
     //connect(loadAVIBtn,SIGNAL(clicked()),this,SLOT(slotLoadAVIMovie()));
     connect(fullScreenBtn,SIGNAL(clicked()),this,SLOT(slotFullScreen()));
     connect(resetBtn,SIGNAL(clicked()),this,SLOT(slotResetScreen()));
+    connect(setBtn,SIGNAL(clicked()),this,SLOT(slotSetWidget()));
     //connect(changePosBtn,SIGNAL(clicked()),this,SLOT(slotChangedPosition()));
     connect(mySlider,SIGNAL(sliderReleased()),this,SLOT(slotChangedPosition()));
     //connect(mySlider,SIGNAL(sliderMoved(int)),this,SLOT(slotRealtimeShow(int)));
@@ -193,4 +197,10 @@ void DockWidget::slotRealtimeShow(int pos)
 {
 
     myCurrentTimeLabel->setText(QString("%1 s").arg(pos));
+}
+
+void DockWidget::slotSetWidget()
+{
+
+    emit signalSetWidget();
 }

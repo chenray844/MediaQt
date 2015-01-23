@@ -48,6 +48,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(myCenterWidget,SIGNAL(signalUpdateSliderValue(qint64)),
             myDockWidget,SLOT(slotUpdateSliderValue(qint64)));
 
+    connect(myDockWidget,SIGNAL(signalSetWidget()),this,SLOT(slotSetCenterWidget()));
+
+    //setCentralWidget(new QWidget());
 
     setMinimumSize(QSize(800,600));
 
@@ -58,6 +61,16 @@ void MainWindow::slotPositionChanged(qint64 pos)
 
     qDebug()<<"position of the mp3 is :"<<pos;
 
+}
+
+void MainWindow::slotSetCenterWidget()
+{
+    QWidget *widget = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->addWidget(new QLabel("Hello Widget"));
+    widget->setLayout(layout);
+    setCentralWidget(widget);
+    //setCentralWidget(myCenterWidget);
 }
 
 void MainWindow::createMenus()
