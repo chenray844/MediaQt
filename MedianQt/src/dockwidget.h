@@ -3,16 +3,19 @@
 
 #include <QDockWidget>
 #include <QTreeWidget>
+#include <QComboBox>
 
 class QMediaPlaylist;
 class QLabel;
 class QSlider;
+class QVBoxLayout;
 
 class DockWidget : public QDockWidget
 {
     Q_OBJECT
 public:
-    DockWidget(QWidget *parent=0);
+    DockWidget(QComboBox *combo,QWidget *parent=0);
+    QTreeWidget * getTreeWidget() {return myTreeWidget;}
 
 signals:
     void signalUpdatePlaylist(QMediaPlaylist *list);
@@ -21,6 +24,8 @@ signals:
     void signalSetWidget();
 
 protected slots:
+    //dock widget changed
+    void slotChangeDockWidget(QString text);
     void slotAddPlaylist();
     void slotLoadMovie();
     void slotLoadAVIMovie();
@@ -34,6 +39,10 @@ protected slots:
     void slotRealtimeShow(int pos);
 
 private:
+    QComboBox *myCombo;
+    QVBoxLayout * createDockWidgetLayout(QString text);
+
+
     QMediaPlaylist *myPlaylist;
     QTreeWidget *myTreeWidget;
     QLabel *myTimeLabel;

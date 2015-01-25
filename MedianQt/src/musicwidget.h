@@ -1,0 +1,5 @@
+#ifndef MUSICWIDGET_H
+#define MUSICWIDGET_H
+
+#endif // MUSICWIDGET_H
+

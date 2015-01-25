@@ -1,0 +1,5 @@
+#ifndef PICTUREWIDGET_H
+#define PICTUREWIDGET_H
+
+#endif // PICTUREWIDGET_H
+

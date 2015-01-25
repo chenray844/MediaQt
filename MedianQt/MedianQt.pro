@@ -23,12 +23,20 @@ SOURCES += \
     src/mainwindow.cxx \
     src/main.cxx \
     src/dockwidget.cxx \
-    src/centerwidget.cxx
+    src/centerwidget.cxx \
+    src/videowidget.cxx \
+    src/musicwidget.cxx \
+    src/picturewidget.cxx \
+    src/textwidget.cxx
 
 HEADERS  += \
     src/mainwindow.h \
     src/dockwidget.h \
-    src/centerwidget.h
+    src/centerwidget.h \
+    src/videowidget.h \
+    src/musicwidget.h \
+    src/picturewidget.h \
+    src/textwidget.h
 
 RESOURCES += \
     src/res/resource.qrc

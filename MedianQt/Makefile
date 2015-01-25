@@ -51,18 +51,28 @@ OBJECTS_DIR   = obj/
 SOURCES       = src/mainwindow.cxx \
 		src/main.cxx \
 		src/dockwidget.cxx \
-		src/centerwidget.cxx rcc/qrc_resource.cpp \
+		src/centerwidget.cxx \
+		src/videowidget.cxx \
+		src/musicwidget.cxx \
+		src/picturewidget.cxx \
+		src/textwidget.cxx rcc/qrc_resource.cpp \
 		moc/moc_mainwindow.cpp \
 		moc/moc_dockwidget.cpp \
-		moc/moc_centerwidget.cpp
+		moc/moc_centerwidget.cpp \
+		moc/moc_textwidget.cpp
 OBJECTS       = obj/mainwindow.o \
 		obj/main.o \
 		obj/dockwidget.o \
 		obj/centerwidget.o \
+		obj/videowidget.o \
+		obj/musicwidget.o \
+		obj/picturewidget.o \
+		obj/textwidget.o \
 		obj/qrc_resource.o \
 		obj/moc_mainwindow.o \
 		obj/moc_dockwidget.o \
-		obj/moc_centerwidget.o
+		obj/moc_centerwidget.o \
+		obj/moc_textwidget.o
 DIST          = /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -193,10 +203,18 @@ DIST          = /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.pr
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
 		MedianQt.pro src/mainwindow.h \
 		src/dockwidget.h \
-		src/centerwidget.h src/mainwindow.cxx \
+		src/centerwidget.h \
+		src/videowidget.h \
+		src/musicwidget.h \
+		src/picturewidget.h \
+		src/textwidget.h src/mainwindow.cxx \
 		src/main.cxx \
 		src/dockwidget.cxx \
-		src/centerwidget.cxx
+		src/centerwidget.cxx \
+		src/videowidget.cxx \
+		src/musicwidget.cxx \
+		src/picturewidget.cxx \
+		src/textwidget.cxx
 QMAKE_TARGET  = Movie
 DESTDIR       = bin/#avoid trailing-slash linebreak
 TARGET        = bin/Movie.app/Contents/MacOS/Movie
@@ -548,8 +566,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents src/res/resource.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents src/mainwindow.h src/dockwidget.h src/centerwidget.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/mainwindow.cxx src/main.cxx src/dockwidget.cxx src/centerwidget.cxx $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.h src/dockwidget.h src/centerwidget.h src/videowidget.h src/musicwidget.h src/picturewidget.h src/textwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.cxx src/main.cxx src/dockwidget.cxx src/centerwidget.cxx src/videowidget.cxx src/musicwidget.cxx src/picturewidget.cxx src/textwidget.cxx $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -581,15 +599,22 @@ rcc/qrc_resource.cpp: src/res/resource.qrc \
 		src/res/Archaia.png
 	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/rcc -name resource src/res/resource.qrc -o rcc/qrc_resource.cpp
 
-compiler_moc_header_make_all: moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp
+compiler_moc_header_make_all: moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_textwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp
+	-$(DEL_FILE) moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_textwidget.cpp
 moc/moc_mainwindow.cpp: src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
 		src/centerwidget.h \
+		src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlayer \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplayer.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlaylist \
@@ -605,19 +630,35 @@ moc/moc_mainwindow.cpp: src/dockwidget.h \
 
 moc/moc_dockwidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
 		src/dockwidget.h
 	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/dockwidget.h -o moc/moc_dockwidget.cpp
 
-moc/moc_centerwidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+moc/moc_centerwidget.cpp: src/textwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlayer \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplayer.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlaylist \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplaylist.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QVideoWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qvideowidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
 		src/centerwidget.h
 	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/centerwidget.h -o moc/moc_centerwidget.cpp
+
+moc/moc_textwidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		src/textwidget.h
+	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/textwidget.h -o moc/moc_textwidget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -639,9 +680,16 @@ obj/mainwindow.o: src/mainwindow.cxx src/mainwindow.h \
 		src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
 		src/centerwidget.h \
+		src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlayer \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplayer.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlaylist \
@@ -664,16 +712,31 @@ obj/mainwindow.o: src/mainwindow.cxx src/mainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QIcon \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qicon.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QColor \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qcolor.h
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qcolor.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMenu \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmenu.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QAction \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qaction.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMenuBar \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmenubar.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QToolBar \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/mainwindow.o src/mainwindow.cxx
 
 obj/main.o: src/main.cxx src/mainwindow.h \
 		src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
 		src/centerwidget.h \
+		src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlayer \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplayer.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlaylist \
@@ -691,12 +754,14 @@ obj/main.o: src/main.cxx src/mainwindow.h \
 obj/dockwidget.o: src/dockwidget.cxx src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidget \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtreewidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTreeWidgetItem \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QToolButton \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtoolbutton.h \
@@ -710,18 +775,27 @@ obj/dockwidget.o: src/dockwidget.cxx src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QMovie \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qmovie.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlaylist \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplaylist.h
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplaylist.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFileDialog \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qfiledialog.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSlider \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qslider.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/dockwidget.o src/dockwidget.cxx
 
 obj/centerwidget.o: src/centerwidget.cxx src/centerwidget.h \
+		src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlayer \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplayer.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QMediaPlaylist \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qmediaplaylist.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QVideoWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qvideowidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QComboBox \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qcombobox.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
@@ -729,6 +803,24 @@ obj/centerwidget.o: src/centerwidget.cxx src/centerwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/centerwidget.o src/centerwidget.cxx
+
+obj/videowidget.o: src/videowidget.cxx 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/videowidget.o src/videowidget.cxx
+
+obj/musicwidget.o: src/musicwidget.cxx 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/musicwidget.o src/musicwidget.cxx
+
+obj/picturewidget.o: src/picturewidget.cxx 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/picturewidget.o src/picturewidget.cxx
+
+obj/textwidget.o: src/textwidget.cxx src/textwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/textwidget.o src/textwidget.cxx
 
 obj/qrc_resource.o: rcc/qrc_resource.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/qrc_resource.o rcc/qrc_resource.cpp
@@ -741,6 +833,9 @@ obj/moc_dockwidget.o: moc/moc_dockwidget.cpp
 
 obj/moc_centerwidget.o: moc/moc_centerwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_centerwidget.o moc/moc_centerwidget.cpp
+
+obj/moc_textwidget.o: moc/moc_textwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_textwidget.o moc/moc_textwidget.cpp
 
 ####### Install
 
