@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "dockwidget.h"
+#include "videowidget.h"
 #include "centerwidget.h"
 
 #include <QMainWindow>
@@ -26,8 +27,10 @@ signals:
 
 protected slots:
     void slotPositionChanged(qint64);
+    //=============================
     void slotSetCenterWidget(QString text);
     void slotLoadText();
+    void slotLoadMedia();
 
 private:
     //create actions
@@ -60,8 +63,11 @@ private:
     //text widget
     TextWidget *myTextWidget;
 
-    //playlist
+    //video widget
+    VideoWidget *myVideoWidget;
+    QMediaPlayer *myPlayer;
     QMediaPlaylist *myPlaylist;
+    bool flagVideo;
 
 
 

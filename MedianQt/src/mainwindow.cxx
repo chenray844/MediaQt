@@ -54,6 +54,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(myMainCombo,SIGNAL(currentTextChanged(QString)),this,SLOT(slotSetCenterWidget(QString)));
 
     connect(myActions[actLoadText],SIGNAL(triggered()),this,SLOT(slotLoadText()));
+    connect(myActions[actLoadMP4],SIGNAL(triggered()),this,SLOT(slotLoadMedia()));
+
+    //variable
+    flagVideo = false;
     //===============================================
 
     connect(myDockWidget,SIGNAL(signalUpdatePlaylist(QMediaPlaylist*)),
@@ -91,11 +95,31 @@ void MainWindow::slotSetCenterWidget(QString text)
 {
     if(text!="Load Text(.txt)")
     {
-        QWidget *widget = new QWidget();
-        QVBoxLayout *layout = new QVBoxLayout();
-        layout->addWidget(new QLabel(text));
-        widget->setLayout(layout);
-        setCentralWidget(widget);
+        if(text=="Load Movies(.mp4)")
+        {
+            flagVideo = true;
+            myVideoWidget = new VideoWidget();
+            myPlayer = myVideoWidget->getPlayer();
+            myPlaylist = new QMediaPlaylist();
+
+            setCentralWidget(myVideoWidget);
+        }
+        else
+        {
+
+            QWidget *widget = new QWidget();
+            QVBoxLayout *layout = new QVBoxLayout();
+            layout->addWidget(new QLabel(text));
+            widget->setLayout(layout);
+            setCentralWidget(widget);
+            if(flagVideo)
+            {
+                flagVideo = false;
+                myPlaylist->clear();
+                myPlayer->stop();
+            }
+        }
+
     }
     else
     {
@@ -189,6 +213,31 @@ void MainWindow::slotLoadText()
 
     root->setExpanded(true);
 
+}
+
+void MainWindow::slotLoadMedia()
+{
+    //QString filename = "/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt/data/video1.mp4";
+    QString filename = QFileDialog::getOpenFileName(this,"Load Movie files","","Movies(*.mp4)");
+    myPlaylist->addMedia(QUrl::fromLocalFile(filename));
+
+    //QTreeWidgetItem *root = myTreeWidget->topLevelItem(0);
+
+    //QTreeWidgetItem *item = new QTreeWidgetItem();
+    //QString text = filename.split("/").at(filename.split("/").size()-1);
+    //item->setText(0,text);
+
+    //root->addChild(item);
+    //myPlaylist = list;
+    //qDebug()<<"Update play list";
+    myPlaylist->setPlaybackMode(QMediaPlaylist::Loop);
+    myPlayer->setPlaylist(myPlaylist);
+    //qDebug()<<myPlayer->error();
+    //qDebug()<<myPlayer->mediaStatus();
+    myPlayer->play();
+
+    //qint64 t = myPlayer->duration();
+    //emit signalUpdateAlltime(t);
 }
 
 

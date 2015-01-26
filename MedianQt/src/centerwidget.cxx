@@ -32,22 +32,7 @@ CenterWidget::CenterWidget(QComboBox *combo, QWidget *parent)
 
 void CenterWidget::slotChangeCenterWidget(QString text)
 {
-    //this->
-    //destroy();
-    //QVBoxLayout *layout = new QVBoxLayout();
-    //QWidget *widget = layout()->widget();
 
-    if(text!="Load Text(.txt)")
-    {
-        //layout()->removeWidget(widget);
-        layout()->addWidget(new QLabel(text));
-    }
-    else
-    {
-        layout()->addWidget(new QTextEdit());
-    }
-
-    //setLayout(layout);
 }
 
 void CenterWidget::slotUpdatePlaylist(QMediaPlaylist *list)
