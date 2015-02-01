@@ -20,6 +20,8 @@ DockWidget::DockWidget(QComboBox *combo,QWidget *parent)
     QWidget *widget = new QWidget();
 
     QVBoxLayout *layout = new QVBoxLayout();
+    QPushButton *btn = new QPushButton("Test");
+    layout->addWidget(btn);
     if(myCombo->currentText()=="Load Text(.txt)")
     {
         QVBoxLayout *layText = createDockWidgetLayout(myCombo->currentText());
@@ -28,6 +30,11 @@ DockWidget::DockWidget(QComboBox *combo,QWidget *parent)
 
     widget->setLayout(layout);
     setWidget(widget);
+
+    connect(btn,SIGNAL(clicked()),this,SLOT(slotTestDockWidget()));
+
+    //initialize variable
+    myMainDockLayout = layout;
 
     //QVBoxLayout *layout = new QVBoxLayout();
     //QLabel *lb = new QLabel();
@@ -133,6 +140,12 @@ void DockWidget::slotChangeDockWidget(QString text)
     QWidget *widget = new QWidget();
     widget->setLayout(createDockWidgetLayout(text));
     setWidget(widget);
+}
+
+void DockWidget::slotTestDockWidget()
+{
+    myMainDockLayout->addWidget(new QLabel("Test Button"));
+
 }
 
 void DockWidget::slotAddPlaylist()

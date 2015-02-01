@@ -1,0 +1,5 @@
+#ifndef CAMERAWIDGET_H
+#define CAMERAWIDGET_H
+
+#endif // CAMERAWIDGET_H
+

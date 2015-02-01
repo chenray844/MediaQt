@@ -27,7 +27,8 @@ SOURCES += \
     src/videowidget.cxx \
     src/musicwidget.cxx \
     src/picturewidget.cxx \
-    src/textwidget.cxx
+    src/textwidget.cxx \
+    src/camerawidget.cxx
 
 HEADERS  += \
     src/mainwindow.h \
@@ -36,7 +37,8 @@ HEADERS  += \
     src/videowidget.h \
     src/musicwidget.h \
     src/picturewidget.h \
-    src/textwidget.h
+    src/textwidget.h \
+    src/camerawidget.h
 
 RESOURCES += \
     src/res/resource.qrc

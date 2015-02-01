@@ -55,11 +55,13 @@ SOURCES       = src/mainwindow.cxx \
 		src/videowidget.cxx \
 		src/musicwidget.cxx \
 		src/picturewidget.cxx \
-		src/textwidget.cxx rcc/qrc_resource.cpp \
+		src/textwidget.cxx \
+		src/camerawidget.cxx rcc/qrc_resource.cpp \
 		moc/moc_mainwindow.cpp \
 		moc/moc_dockwidget.cpp \
 		moc/moc_centerwidget.cpp \
 		moc/moc_videowidget.cpp \
+		moc/moc_picturewidget.cpp \
 		moc/moc_textwidget.cpp
 OBJECTS       = obj/mainwindow.o \
 		obj/main.o \
@@ -69,11 +71,13 @@ OBJECTS       = obj/mainwindow.o \
 		obj/musicwidget.o \
 		obj/picturewidget.o \
 		obj/textwidget.o \
+		obj/camerawidget.o \
 		obj/qrc_resource.o \
 		obj/moc_mainwindow.o \
 		obj/moc_dockwidget.o \
 		obj/moc_centerwidget.o \
 		obj/moc_videowidget.o \
+		obj/moc_picturewidget.o \
 		obj/moc_textwidget.o
 DIST          = /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
@@ -209,14 +213,16 @@ DIST          = /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.pr
 		src/videowidget.h \
 		src/musicwidget.h \
 		src/picturewidget.h \
-		src/textwidget.h src/mainwindow.cxx \
+		src/textwidget.h \
+		src/camerawidget.h src/mainwindow.cxx \
 		src/main.cxx \
 		src/dockwidget.cxx \
 		src/centerwidget.cxx \
 		src/videowidget.cxx \
 		src/musicwidget.cxx \
 		src/picturewidget.cxx \
-		src/textwidget.cxx
+		src/textwidget.cxx \
+		src/camerawidget.cxx
 QMAKE_TARGET  = Movie
 DESTDIR       = bin/#avoid trailing-slash linebreak
 TARGET        = bin/Movie.app/Contents/MacOS/Movie
@@ -568,8 +574,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents src/res/resource.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents src/mainwindow.h src/dockwidget.h src/centerwidget.h src/videowidget.h src/musicwidget.h src/picturewidget.h src/textwidget.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/mainwindow.cxx src/main.cxx src/dockwidget.cxx src/centerwidget.cxx src/videowidget.cxx src/musicwidget.cxx src/picturewidget.cxx src/textwidget.cxx $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.h src/dockwidget.h src/centerwidget.h src/videowidget.h src/musicwidget.h src/picturewidget.h src/textwidget.h src/camerawidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/mainwindow.cxx src/main.cxx src/dockwidget.cxx src/centerwidget.cxx src/videowidget.cxx src/musicwidget.cxx src/picturewidget.cxx src/textwidget.cxx src/camerawidget.cxx $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -601,9 +607,9 @@ rcc/qrc_resource.cpp: src/res/resource.qrc \
 		src/res/Archaia.png
 	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/rcc -name resource src/res/resource.qrc -o rcc/qrc_resource.cpp
 
-compiler_moc_header_make_all: moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_textwidget.cpp
+compiler_moc_header_make_all: moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_picturewidget.cpp moc/moc_textwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_textwidget.cpp
+	-$(DEL_FILE) moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_picturewidget.cpp moc/moc_textwidget.cpp
 moc/moc_mainwindow.cpp: src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
@@ -620,10 +626,14 @@ moc/moc_mainwindow.cpp: src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qvideowidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
-		src/centerwidget.h \
 		src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		src/picturewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsView \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
@@ -667,6 +677,13 @@ moc/moc_videowidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.fr
 		src/videowidget.h
 	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/videowidget.h -o moc/moc_videowidget.cpp
 
+moc/moc_picturewidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsView \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
+		src/picturewidget.h
+	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/picturewidget.h -o moc/moc_picturewidget.cpp
+
 moc/moc_textwidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
@@ -707,10 +724,14 @@ obj/mainwindow.o: src/mainwindow.cxx src/mainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qvideowidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
-		src/centerwidget.h \
 		src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		src/picturewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsView \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
@@ -763,10 +784,14 @@ obj/main.o: src/main.cxx src/mainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qvideowidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
-		src/centerwidget.h \
 		src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		src/picturewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsView \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
@@ -846,7 +871,13 @@ obj/videowidget.o: src/videowidget.cxx src/videowidget.h \
 obj/musicwidget.o: src/musicwidget.cxx 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/musicwidget.o src/musicwidget.cxx
 
-obj/picturewidget.o: src/picturewidget.cxx 
+obj/picturewidget.o: src/picturewidget.cxx src/picturewidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsView \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/picturewidget.o src/picturewidget.cxx
 
 obj/textwidget.o: src/textwidget.cxx src/textwidget.h \
@@ -857,6 +888,9 @@ obj/textwidget.o: src/textwidget.cxx src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/textwidget.o src/textwidget.cxx
+
+obj/camerawidget.o: src/camerawidget.cxx 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/camerawidget.o src/camerawidget.cxx
 
 obj/qrc_resource.o: rcc/qrc_resource.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/qrc_resource.o rcc/qrc_resource.cpp
@@ -872,6 +906,9 @@ obj/moc_centerwidget.o: moc/moc_centerwidget.cpp
 
 obj/moc_videowidget.o: moc/moc_videowidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_videowidget.o moc/moc_videowidget.cpp
+
+obj/moc_picturewidget.o: moc/moc_picturewidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_picturewidget.o moc/moc_picturewidget.cpp
 
 obj/moc_textwidget.o: moc/moc_textwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_textwidget.o moc/moc_textwidget.cpp

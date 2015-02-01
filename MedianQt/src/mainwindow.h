@@ -3,7 +3,8 @@
 
 #include "dockwidget.h"
 #include "videowidget.h"
-#include "centerwidget.h"
+#include "textwidget.h"
+#include "picturewidget.h"
 
 #include <QMainWindow>
 #include <QLabel>
@@ -19,18 +20,19 @@ public:
     MainWindow(QWidget *parent=0);
 
     //actions
-    enum Actions{actLoadText,actLoadPicture,actLoadMP3,actLoadMP4,actExit,actAbout,actCount};
+    enum Actions{actLoadText,actLoadPicture,actLoadMP3,actLoadMP4,actShowCamera,actExit,actAbout,actCount};
     enum Menus{menuFile,menuHelp,menuCount};
 
 signals:
     void signalUpdatePlaylist(QMediaPlaylist *list);
 
 protected slots:
-    void slotPositionChanged(qint64);
-    //=============================
+    //set center widget
     void slotSetCenterWidget(QString text);
+    //=====================================
     void slotLoadText();
     void slotLoadMedia();
+    void slotLoadPicture();
 
 private:
     //create actions
@@ -56,9 +58,8 @@ private:
 
 
 
-    //dock and center widget
+    //dock widget
     DockWidget *myDockWidget;
-    CenterWidget *myCenterWidget;
 
     //text widget
     TextWidget *myTextWidget;
@@ -69,7 +70,9 @@ private:
     QMediaPlaylist *myPlaylist;
     bool flagVideo;
 
-
+    //picture show widget
+    PictureWidget *myPicWgt;
+    QGraphicsScene *myPicScene;
 
 
 };

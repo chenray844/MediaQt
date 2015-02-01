@@ -23,7 +23,7 @@
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent)
 {
-    setWindowTitle("Movie Show");
+    setWindowTitle("ShowTime");
 
     //actions
     createActions();
@@ -42,10 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
     myDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
     addDockWidget(Qt::LeftDockWidgetArea,myDockWidget);
 
-    //center widget
-    myCenterWidget = new CenterWidget(myMainCombo);
-    //setCentralWidget(myCenterWidget);
-
     //text widget original show
     myTextWidget = new TextWidget();
     setCentralWidget(myTextWidget);
@@ -55,44 +51,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(myActions[actLoadText],SIGNAL(triggered()),this,SLOT(slotLoadText()));
     connect(myActions[actLoadMP4],SIGNAL(triggered()),this,SLOT(slotLoadMedia()));
+    connect(myActions[actLoadPicture],SIGNAL(triggered()),this,SLOT(slotLoadPicture()));
 
     //variable
     flagVideo = false;
-    //===============================================
-
-    connect(myDockWidget,SIGNAL(signalUpdatePlaylist(QMediaPlaylist*)),
-            myCenterWidget,SLOT(slotUpdatePlaylist(QMediaPlaylist*)));
-    connect(this,SIGNAL(signalUpdatePlaylist(QMediaPlaylist*)),myCenterWidget,SLOT(slotUpdatePlaylist(QMediaPlaylist*)));
-
-    connect(myDockWidget,SIGNAL(signalFullScreen(bool)),
-            myCenterWidget,SLOT(slotFullScreen(bool)));
-
-    connect(myCenterWidget,SIGNAL(signalUpdateAlltime(qint64)),
-            myDockWidget,SLOT(slotUpdateAlltime(qint64)));
-
-    connect(myDockWidget,SIGNAL(signalChangedPosition(qint64)),
-            myCenterWidget,SLOT(slotChangePosition(qint64)));
-
-    connect(myCenterWidget,SIGNAL(signalUpdateSliderValue(qint64)),
-            myDockWidget,SLOT(slotUpdateSliderValue(qint64)));
-
-    //connect(myDockWidget,SIGNAL(signalSetWidget()),this,SLOT(slotSetCenterWidget()));
-
-    //setCentralWidget(new QWidget());
 
     setMinimumSize(QSize(800,600));
-
-}
-
-void MainWindow::slotPositionChanged(qint64 pos)
-{
-
-    qDebug()<<"position of the mp3 is :"<<pos;
-
 }
 
 void MainWindow::slotSetCenterWidget(QString text)
 {
+    if(flagVideo)
+    {
+        flagVideo = false;
+        myPlaylist->clear();
+        myPlayer->stop();
+    }
     if(text!="Load Text(.txt)")
     {
         if(text=="Load Movies(.mp4)")
@@ -103,6 +77,14 @@ void MainWindow::slotSetCenterWidget(QString text)
             myPlaylist = new QMediaPlaylist();
 
             setCentralWidget(myVideoWidget);
+        }
+        else if(text=="Load Pictures(.png,.jpg,.bmp....)")
+        {
+
+            myPicWgt = new PictureWidget();
+            myPicScene = myPicWgt->getScene();
+
+            setCentralWidget(myPicWgt);
         }
         else
         {
@@ -123,6 +105,12 @@ void MainWindow::slotSetCenterWidget(QString text)
     }
     else
     {
+        if(flagVideo)
+        {
+            flagVideo = false;
+            myPlaylist->clear();
+            myPlayer->stop();
+        }
         myTextWidget = new TextWidget();
         setCentralWidget(myTextWidget);
     }
@@ -138,6 +126,7 @@ void MainWindow::createActions()
     myActions[actLoadPicture] = new QAction("Load Pictures(.png,.jpg,.bmp....)",this);
     myActions[actLoadMP3] = new QAction("Load Music(.mp3)",this);
     myActions[actLoadMP4] = new QAction("Load Movies(.mp4)",this);
+    myActions[actShowCamera] = new QAction("Show Camera",this);
     myActions[actExit] = new QAction("Exit",this);
     myActions[actAbout] = new QAction("About",this);
 
@@ -168,6 +157,7 @@ void MainWindow::createToolBars()
     myMainCombo->addItem(myActions[actLoadPicture]->text());
     myMainCombo->addItem(myActions[actLoadMP3]->text());
     myMainCombo->addItem(myActions[actLoadMP4]->text());
+    myMainCombo->addItem(myActions[actShowCamera]->text());
 
     myMainToolBar->addWidget(myMainCombo);
     addToolBar(myMainToolBar);
@@ -217,29 +207,52 @@ void MainWindow::slotLoadText()
 
 void MainWindow::slotLoadMedia()
 {
+    QTreeWidget *treeWidget = myDockWidget->getTreeWidget();
+    treeWidget->clear();
+    myPlaylist->clear();
+
     //QString filename = "/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt/data/video1.mp4";
     QString filename = QFileDialog::getOpenFileName(this,"Load Movie files","","Movies(*.mp4)");
     myPlaylist->addMedia(QUrl::fromLocalFile(filename));
 
-    //QTreeWidgetItem *root = myTreeWidget->topLevelItem(0);
+    QFile file(filename);
 
-    //QTreeWidgetItem *item = new QTreeWidgetItem();
-    //QString text = filename.split("/").at(filename.split("/").size()-1);
-    //item->setText(0,text);
+    QMessageBox box;
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        box.critical(this,"Attentation","Cannot load this file");
+        return;
+    }
 
-    //root->addChild(item);
-    //myPlaylist = list;
-    //qDebug()<<"Update play list";
+    QString name = filename.split("/").at(filename.split("/").size()-1);
+    treeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList(QString(name))));
+
+    QTreeWidgetItem *root = treeWidget->topLevelItem(0);
+    QTreeWidgetItem *addr = new QTreeWidgetItem();
+    addr->setText(0,"Address :");
+    addr->setText(1,filename);
+    root->addChild(addr);
+
+    QTreeWidgetItem *fileSize = new QTreeWidgetItem();
+    fileSize->setText(0,"File Size (byte):");
+    fileSize->setText(1,QString("%1 byte").arg(file.size()));
+    root->addChild(fileSize);
+    root->setExpanded(true);
+
     myPlaylist->setPlaybackMode(QMediaPlaylist::Loop);
     myPlayer->setPlaylist(myPlaylist);
-    //qDebug()<<myPlayer->error();
-    //qDebug()<<myPlayer->mediaStatus();
     myPlayer->play();
-
-    //qint64 t = myPlayer->duration();
-    //emit signalUpdateAlltime(t);
 }
 
+void MainWindow::slotLoadPicture()
+{
+    myPicScene->clear();
+
+    QString filename = QFileDialog::getOpenFileName(this,"Picture","","Picture(*.jpg *.png *.bmp)");
+    QPixmap *pic = new QPixmap();
+    pic->load(filename);
+    myPicScene->addPixmap(*pic);
+}
 
 
 

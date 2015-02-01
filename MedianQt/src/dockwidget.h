@@ -26,6 +26,9 @@ signals:
 protected slots:
     //dock widget changed
     void slotChangeDockWidget(QString text);
+    void slotTestDockWidget();
+
+
     void slotAddPlaylist();
     void slotLoadMovie();
     void slotLoadAVIMovie();
@@ -41,6 +44,7 @@ protected slots:
 private:
     QComboBox *myCombo;
     QVBoxLayout * createDockWidgetLayout(QString text);
+    QVBoxLayout * myMainDockLayout;
 
 
     QMediaPlaylist *myPlaylist;
