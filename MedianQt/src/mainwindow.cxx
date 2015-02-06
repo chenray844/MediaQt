@@ -19,6 +19,7 @@
 #include <QFile>
 #include <QIODevice>
 #include <QMessageBox>
+#include <QCamera>
 
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent)
@@ -85,6 +86,33 @@ void MainWindow::slotSetCenterWidget(QString text)
             myPicScene = myPicWgt->getScene();
 
             setCentralWidget(myPicWgt);
+        }
+        else if(text=="Show Camera")
+        {
+            myCamWgt = new CameraWidget();
+
+            QCamera *camera = new QCamera();
+            camera->setViewfinder(myCamWgt);
+
+            camera->start();
+
+            setCentralWidget(myCamWgt);
+
+            /*
+             * camera = new QCamera;
+
+            viewfinder = new QCameraViewfinder();
+            viewfinder->show();
+
+            camera->setViewfinder(viewfinder);
+
+            imageCapture = new QCameraImageCapture(camera);
+
+            camera->setCaptureMode(QCamera::CaptureStillImage);
+            camera->start();
+             *
+             * */
+
         }
         else
         {

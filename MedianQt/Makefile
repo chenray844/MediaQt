@@ -62,7 +62,8 @@ SOURCES       = src/mainwindow.cxx \
 		moc/moc_centerwidget.cpp \
 		moc/moc_videowidget.cpp \
 		moc/moc_picturewidget.cpp \
-		moc/moc_textwidget.cpp
+		moc/moc_textwidget.cpp \
+		moc/moc_camerawidget.cpp
 OBJECTS       = obj/mainwindow.o \
 		obj/main.o \
 		obj/dockwidget.o \
@@ -78,7 +79,8 @@ OBJECTS       = obj/mainwindow.o \
 		obj/moc_centerwidget.o \
 		obj/moc_videowidget.o \
 		obj/moc_picturewidget.o \
-		obj/moc_textwidget.o
+		obj/moc_textwidget.o \
+		obj/moc_camerawidget.o
 DIST          = /Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -607,9 +609,9 @@ rcc/qrc_resource.cpp: src/res/resource.qrc \
 		src/res/Archaia.png
 	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/rcc -name resource src/res/resource.qrc -o rcc/qrc_resource.cpp
 
-compiler_moc_header_make_all: moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_picturewidget.cpp moc/moc_textwidget.cpp
+compiler_moc_header_make_all: moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_picturewidget.cpp moc/moc_textwidget.cpp moc/moc_camerawidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_picturewidget.cpp moc/moc_textwidget.cpp
+	-$(DEL_FILE) moc/moc_mainwindow.cpp moc/moc_dockwidget.cpp moc/moc_centerwidget.cpp moc/moc_videowidget.cpp moc/moc_picturewidget.cpp moc/moc_textwidget.cpp moc/moc_camerawidget.cpp
 moc/moc_mainwindow.cpp: src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDockWidget \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdockwidget.h \
@@ -634,6 +636,9 @@ moc/moc_mainwindow.cpp: src/dockwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
+		src/camerawidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QCameraViewfinder \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qcameraviewfinder.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
@@ -691,6 +696,13 @@ moc/moc_textwidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framew
 		src/textwidget.h
 	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/textwidget.h -o moc/moc_textwidget.cpp
 
+moc/moc_camerawidget.cpp: /Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QCameraViewfinder \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qcameraviewfinder.h \
+		src/camerawidget.h
+	/Users/Raymond/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/Raymond/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/Raymond/Documents/Ray/MediaQt/MediaQt/MedianQt -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtXml.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -F/Users/Raymond/Qt5.4.0/5.4/clang_64/lib src/camerawidget.h -o moc/moc_camerawidget.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -732,6 +744,9 @@ obj/mainwindow.o: src/mainwindow.cxx src/mainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
+		src/camerawidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QCameraViewfinder \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qcameraviewfinder.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
@@ -764,7 +779,9 @@ obj/mainwindow.o: src/mainwindow.cxx src/mainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QIODevice \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qiodevice.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMessageBox \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/QCamera \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimedia.framework/Versions/5/Headers/qcamera.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/mainwindow.o src/mainwindow.cxx
 
 obj/main.o: src/main.cxx src/mainwindow.h \
@@ -792,6 +809,9 @@ obj/main.o: src/main.cxx src/mainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsview.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
+		src/camerawidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QCameraViewfinder \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qcameraviewfinder.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
@@ -877,7 +897,9 @@ obj/picturewidget.o: src/picturewidget.cxx src/picturewidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QGraphicsScene \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgraphicsscene.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
-		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QPixmap \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/picturewidget.o src/picturewidget.cxx
 
 obj/textwidget.o: src/textwidget.cxx src/textwidget.h \
@@ -889,7 +911,11 @@ obj/textwidget.o: src/textwidget.cxx src/textwidget.h \
 		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/textwidget.o src/textwidget.cxx
 
-obj/camerawidget.o: src/camerawidget.cxx 
+obj/camerawidget.o: src/camerawidget.cxx src/camerawidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/QCameraViewfinder \
+		/Users/Raymond/Qt5.4.0/5.4/clang_64/lib/QtMultimediaWidgets.framework/Versions/5/Headers/qcameraviewfinder.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/camerawidget.o src/camerawidget.cxx
 
 obj/qrc_resource.o: rcc/qrc_resource.cpp 
@@ -912,6 +938,9 @@ obj/moc_picturewidget.o: moc/moc_picturewidget.cpp
 
 obj/moc_textwidget.o: moc/moc_textwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_textwidget.o moc/moc_textwidget.cpp
+
+obj/moc_camerawidget.o: moc/moc_camerawidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_camerawidget.o moc/moc_camerawidget.cpp
 
 ####### Install
 

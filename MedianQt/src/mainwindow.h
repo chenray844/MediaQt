@@ -5,6 +5,7 @@
 #include "videowidget.h"
 #include "textwidget.h"
 #include "picturewidget.h"
+#include "camerawidget.h"
 
 #include <QMainWindow>
 #include <QLabel>
@@ -74,6 +75,8 @@ private:
     PictureWidget *myPicWgt;
     QGraphicsScene *myPicScene;
 
+    //camera widget
+    CameraWidget *myCamWgt;
 
 };
 
